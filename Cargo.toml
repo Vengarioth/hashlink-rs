@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "hashlink-sys",
+    "hashlink-test",
+]

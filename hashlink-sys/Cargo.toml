@@ -1,0 +1,18 @@
+[package]
+name = "hashlink-sys"
+version = "0.1.0"
+authors = ["Andreas Fischer <home@deviru.de>"]
+edition = "2018"
+build = "build.rs"
+links = "hl"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "hashlink"
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.53.2"
+cmake = "0.1.42"
