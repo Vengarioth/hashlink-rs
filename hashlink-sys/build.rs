@@ -6,7 +6,17 @@ use cmake::Config;
 
 fn main() {
 
-    let output_path = Config::new("../hashlink")
+    // TODO make these flags cargo features and document how to add
+    // dependencies (e.g. see hashlink docs)
+    let output_path = Config::new("../vendor/hashlink")
+        .define("WITH_DIRECTX", "false")
+        .define("WITH_FMT", "false")
+        .define("WITH_OPENAL", "false")
+        .define("WITH_SDL", "false")
+        .define("WITH_SQLITE", "false")
+        .define("WITH_SSL", "false")
+        .define("WITH_UI", "false")
+        .define("WITH_UV", "false")
         .define("WITH_VIDEO", "false")
         .define("BUILD_TESTING", "false")
         .build();
@@ -16,14 +26,14 @@ fn main() {
 
     println!("cargo:rustc-link-search=native={}", output_lib_path.display());
     println!("cargo:rustc-link-lib=static=libhl");
-    println!("cargo:include={}", output_path.display());
 
     let mut output_include_path = output_path.clone();
     output_include_path.push("include");
+    println!("cargo:include={}", output_include_path.display());
 
     let bindings = bindgen::Builder::default()
         .header("wrapper.h")
-        .clang_arg("--include-directory=../hashlink/src/")
+        .clang_arg(format!("--include-directory={}", output_include_path.display()))
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         .generate()
         .expect("Unable to generate bindings");

@@ -1,2 +1,2 @@
-#include "../hashlink/src/hl.h"
-#include "../hashlink/src/hlc.h"
+#include "../vendor/hashlink/src/hl.h"
+#include "../vendor/hashlink/src/hlc.h"

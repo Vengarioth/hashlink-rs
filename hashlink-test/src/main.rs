@@ -1,11 +1,11 @@
-extern crate hashlink_sys;
-
-use hashlink_sys::*;
+use hashlink::*;
 
 fn main() {
-    println!("Hello, world!");
-
     unsafe {
-        hl_global_init();
+        println!("floorf(5.5) == {}", floorf(5.5));
+
+        // uncomment the next line for (exit code: 0xc0000135, STATUS_DLL_NOT_FOUND)
+        // hl_global_init();
     }
+    println!("Hello, world!");
 }

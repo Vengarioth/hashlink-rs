@@ -6,13 +6,12 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     #[test]
     fn it_works() {
         unsafe {
-            hl_global_init();
+            floorf(5.5);
         }
     }
 
