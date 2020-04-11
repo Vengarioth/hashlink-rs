@@ -28,10 +28,12 @@ fn main() {
     output_bin_path.push("bin");
 
     println!("cargo:rustc-link-search=native={}", output_lib_path.display());
-    println!("cargo:rustc-link-lib=static=libhl");
-
     println!("cargo:rustc-link-search=native={}", output_bin_path.display());
+    
+    println!("cargo:rustc-link-lib=static=libhl");
     println!("cargo:rustc-link-lib=dylib=libhl");
+    println!("cargo:rustc-link-lib=dylib=ws2_32");
+    println!("cargo:rustc-link-lib=dylib=user32");
 
     let mut output_include_path = output_path.clone();
     output_include_path.push("include");
