@@ -1,6 +1,6 @@
 # hashlink-rs
 
-an attempt to build a [sys crate](https://kornel.ski/rust-sys-crate) for [hashlink](https://hashlink.haxe.org/). Basic linking seems to work, but i'm stuck with "DLL NOT FOUND" errors at runtime when trying to initialize the vm.
+an attempt to build a [sys crate](https://kornel.ski/rust-sys-crate) for [hashlink](https://hashlink.haxe.org/). Basic linking seems to work (against the lib and the dll).
 
 ## Licensing
 
