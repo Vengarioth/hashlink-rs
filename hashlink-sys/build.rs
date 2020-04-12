@@ -6,12 +6,15 @@ use cmake::Config;
 
 fn build_libhl_full()
 {
+    let mut out_dir = PathBuf::from(env::var("out_dir").unwrap());
+    out_dir.push("_deploy");
+
     let mut build = cc::Build::new();
 
     // Global config
-    build.cpp        (true);
+    build.cpp(true);
     build.static_flag(true);
-    build.out_dir    ("_deploy");
+    build.out_dir(out_dir);
 
     // C-Flags    
     build.flag("-std=c++11");
@@ -40,7 +43,14 @@ fn build_libhl_full()
 
 fn main() {
     build_libhl_full();
-    println!("cargo:rustc-link-search=./_deploy");
+
+    let mut out_dir = PathBuf::from(env::var("out_dir").unwrap());
+    out_dir.push("_deploy");
+
+    println!("cargo:rustc-link-search={}", out_dir.display());
+    println!("cargo:rustc-link-lib=hlfull");
+    println!("cargo:rustc-link-lib=dylib=ws2_32");
+    println!("cargo:rustc-link-lib=dylib=user32");
 
     let bindings = bindgen::Builder::default()
         .header("wrapper.h")
@@ -49,9 +59,10 @@ fn main() {
         .generate()
         .expect("Unable to generate bindings");
 
-    let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+    let mut bindings_path = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
+    bindings_path.push("src");
 
     bindings
-        .write_to_file(out_path.join("bindings.rs"))
+        .write_to_file(bindings_path.join("ffi.rs"))
         .expect("Couldn't write bindings!");
 }
